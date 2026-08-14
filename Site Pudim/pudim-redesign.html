@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pudim.com.br — a sobremesa mais famosa da internet</title>
+<meta name="description" content="Recriação moderna e responsiva do clássico pudim.com.br, com história e curiosidades sobre o pudim.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Zilla+Slab:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burnt: #3B2412;
+    --burnt-2: #5C3210;
+    --caramel: #B8690E;
+    --caramel-light: #E8A94C;
+    --custard: #FFF3D6;
+    --custard-deep: #FCE29B;
+    --ink: #2B1B10;
+    --cream-text: #FFF3D6;
+    --max: 780px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--custard);
+    color:var(--ink);
+    font-family:'Zilla Slab', serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--caramel);}
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--caramel-light);
+    outline-offset:3px;
+  }
+
+  h1,h2,h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    margin:0 0 .4em;
+    color:var(--burnt);
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--caramel);
+    display:inline-block;
+    margin-bottom:.8em;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(59,36,18,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,243,214,.12);
+  }
+  nav .wrap{
+    max-width:1040px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px 0;
+    padding-top:14px; padding-bottom:14px;
+  }
+  .brand{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    color:var(--custard);
+    text-decoration:none;
+    letter-spacing:.01em;
+  }
+  .brand span{color:var(--caramel-light);}
+  .navlinks{list-style:none; display:flex; gap:26px; margin:0; padding:0;}
+  .navlinks a{
+    color:var(--custard);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.78rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    opacity:.85;
+  }
+  .navlinks a:hover{opacity:1; color:var(--caramel-light);}
+  @media (max-width:560px){
+    nav .wrap{ justify-content:center; text-align:center; }
+    .navlinks{ width:100%; justify-content:center; gap:14px; }
+    .navlinks a{font-size:.66rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(184,105,14,.35), transparent 60%),
+      linear-gradient(180deg, var(--burnt) 0%, #2c1a0c 100%);
+    color:var(--custard);
+    text-align:center;
+    padding:64px 24px 90px;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero .wrap{max-width:640px;}
+  .hero .eyebrow{color:var(--caramel-light);}
+  .hero h1{
+    font-size:clamp(2.6rem, 9vw, 4.4rem);
+    color:var(--custard);
+    line-height:.95;
+    margin-bottom:.25em;
+  }
+  .hero h1 .dot{color:var(--caramel-light);}
+  .hero p.lead{
+    font-family:'Zilla Slab', serif;
+    font-style:italic;
+    font-size:clamp(1rem,2.6vw,1.2rem);
+    color:#e9cfa0;
+    max-width:38ch;
+    margin:0 auto 42px;
+  }
+
+  /* pudim SVG stage */
+  .pudim-stage{
+    width:min(300px, 62vw);
+    margin:0 auto 8px;
+    filter:drop-shadow(0 30px 26px rgba(0,0,0,.45));
+  }
+  .pudim-stage svg{ display:block; width:100%; height:auto; }
+  .wobble{
+    transform-origin:50% 62%;
+    animation:settle 1.2s ease-out 1;
+  }
+  .pudim-stage:hover .wobble, .pudim-stage:focus-within .wobble{
+    animation:jiggle 700ms ease-in-out 1;
+  }
+  @keyframes settle{
+    0%{transform:scale(1,1) translateY(-14px);}
+    35%{transform:scale(1.05,.93) translateY(2px);}
+    55%{transform:scale(.97,1.05) translateY(-2px);}
+    75%{transform:scale(1.02,.98);}
+    100%{transform:scale(1,1);}
+  }
+  @keyframes jiggle{
+    0%,100%{transform:scale(1,1);}
+    20%{transform:scale(1.06,.9);}
+    40%{transform:scale(.94,1.08);}
+    60%{transform:scale(1.03,.96);}
+    80%{transform:scale(.98,1.02);}
+  }
+
+  .scrollcue{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:28px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:#c99b5c; text-decoration:none;
+  }
+  .scrollcue svg{width:14px; height:14px; animation:bob 1.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);}}
+
+  /* ---------- BRIDGE ---------- */
+  .bridge{
+    text-align:center;
+    padding:56px 24px 8px;
+  }
+  .bridge p{
+    max-width:46ch; margin:0 auto;
+    font-size:1.05rem;
+    color:var(--burnt-2);
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.card-section{ padding:56px 0; }
+  .section-head{ text-align:center; margin-bottom:40px; }
+  .section-head h2{ font-size:clamp(1.7rem,4.6vw,2.3rem); }
+  .section-head p{ color:var(--burnt-2); max-width:50ch; margin:0 auto; }
+
+  /* ---------- TIMELINE (história) ---------- */
+  .timeline{
+    position:relative;
+    margin-top:48px;
+    padding-left:26px;
+    border-left:3px dashed var(--caramel-light);
+  }
+  .tl-item{ position:relative; padding-bottom:40px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-35.5px; top:4px;
+    width:16px; height:16px; border-radius:50%;
+    background:var(--custard-deep);
+    border:3px solid var(--caramel);
+  }
+  .tl-era{
+    font-family:'JetBrains Mono', monospace;
+    font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--caramel);
+    display:block; margin-bottom:.35em;
+  }
+  .tl-item h3{ font-size:1.15rem; margin-bottom:.3em; }
+  .tl-item p{ margin:0; color:var(--ink); }
+
+  /* ---------- CURIOSITIES GRID ---------- */
+  .curios-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:18px;
+    margin-top:40px;
+  }
+  .curio{
+    background:var(--custard-deep);
+    border:1px solid rgba(59,36,18,.08);
+    border-radius:18px;
+    padding:22px 20px;
+    box-shadow:0 8px 0 rgba(59,36,18,.06);
+  }
+  .curio .icon{ font-size:1.6rem; display:block; margin-bottom:10px; }
+  .curio h3{ font-size:1rem; margin-bottom:.35em; }
+  .curio p{ margin:0; font-size:.94rem; color:var(--burnt-2); }
+
+  /* ---------- SHARE ---------- */
+  .share{
+    background:var(--burnt);
+    color:var(--custard);
+    padding:64px 24px;
+    text-align:center;
+  }
+  .share .eyebrow{color:var(--caramel-light);}
+  .share h2{ color:var(--custard); }
+  .share p{ color:#e9cfa0; max-width:44ch; margin:0 auto 30px; }
+  .share-buttons{
+    display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+  }
+  .share-btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:12px 20px;
+    border-radius:999px;
+    background:rgba(255,243,214,.08);
+    border:1px solid rgba(255,243,214,.25);
+    color:var(--custard);
+    text-decoration:none;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.78rem; letter-spacing:.04em;
+    cursor:pointer;
+    transition:background .15s, transform .15s, border-color .15s;
+  }
+  .share-btn:hover{ background:var(--caramel); border-color:var(--caramel); transform:translateY(-2px); }
+  .share-btn svg{ width:16px; height:16px; flex:none; }
+  .copy-msg{
+    display:block; margin-top:14px; min-height:1.2em;
+    font-family:'JetBrains Mono', monospace; font-size:.75rem;
+    color:var(--caramel-light);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#2c1a0c;
+    color:#c99b5c;
+    padding:34px 24px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:.78rem;
+    letter-spacing:.02em;
+  }
+  footer strong{ color:var(--custard); }
+  footer .foot-links{ margin-top:10px; }
+  footer a{ color:#c99b5c; }
+  footer .joke{ margin-top:16px; opacity:.6; font-style:italic; font-family:'Zilla Slab', serif; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand">🍮 pudim<span>.com.br</span></a>
+    <ul class="navlinks">
+      <li><a href="#top">Início</a></li>
+      <li><a href="#historia">História</a></li>
+      <li><a href="#curiosidades">Curiosidades</a></li>
+      <li><a href="#compartilhar">Compartilhar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">desde sempre, o mesmo pudim</span>
+    <h1>pudim<span class="dot">.</span></h1>
+    <p class="lead">O site mais simples — e mais lendário — da internet brasileira. Continua sendo só isto. E está ótimo assim.</p>
+
+    <div class="pudim-stage" tabindex="0" aria-label="Ilustração de um pudim de leite com calda de caramelo, balançando como um pudim de verdade">
+      <svg class="wobble" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+        <defs>
+          <radialGradient id="sauce" cx="50%" cy="45%" r="60%">
+            <stop offset="0%" stop-color="#D98A2B"/>
+            <stop offset="100%" stop-color="#8C4E10"/>
+          </radialGradient>
+          <linearGradient id="flanTop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8A4A12"/>
+            <stop offset="100%" stop-color="#5C3210"/>
+          </linearGradient>
+          <linearGradient id="flanSide" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#C17817"/>
+            <stop offset="100%" stop-color="#9C5B10"/>
+          </linearGradient>
+        </defs>
+
+        <ellipse cx="150" cy="235" rx="128" ry="26" fill="url(#sauce)" opacity="0.9"/>
+        <path d="M60 205 Q55 225 62 236" stroke="#8C4E10" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/>
+        <path d="M232 202 Q240 222 231 234" stroke="#8C4E10" stroke-width="6" fill="none" stroke-linecap="round" opacity=".8"/>
+        <path d="M150 214 Q146 228 152 238" stroke="#8C4E10" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+
+        <ellipse cx="150" cy="150" rx="112" ry="34" fill="url(#flanSide)"/>
+        <path d="M38 150 a112 34 0 0 0 224 0 v34 a112 34 0 0 1 -224 0 z" fill="url(#flanSide)"/>
+        <ellipse cx="150" cy="184" rx="112" ry="34" fill="#7A4310"/>
+
+        <ellipse cx="150" cy="150" rx="112" ry="34" fill="url(#flanTop)"/>
+        <ellipse cx="150" cy="150" rx="40" ry="14" fill="#E9C98A" opacity=".9"/>
+        <ellipse cx="150" cy="150" rx="40" ry="14" fill="url(#sauce)"/>
+
+        <ellipse cx="112" cy="136" rx="30" ry="8" fill="#E9A94C" opacity=".55"/>
+      </svg>
+    </div>
+
+    <a href="#historia" class="scrollcue">
+      role para descobrir mais
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+    </a>
+  </div>
+</header>
+
+<div class="bridge">
+  <p>Piada à parte: por trás dessa página batida existe uma sobremesa com mais de dois mil anos de estrada. Desce a página com a gente.</p>
+</div>
+
+<section class="card-section" id="historia">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">de roma às panelas de pressão</span>
+      <h2>A história do pudim</h2>
+      <p>Uma sobremesa que atravessou impérios, conventos e latas de leite condensado até virar item obrigatório do almoço de domingo.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-era">Roma Antiga</span>
+        <h3>Ovos, mel e a raiz da palavra</h3>
+        <p>Cozinheiros romanos já misturavam ovos com leite e mel para engrossar molhos doces. O nome "flan" vem do francês antigo <em>flaon</em>, herdeiro do latim <em>fladō</em> — uma espécie de bolo achatado assado sobre brasas.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-era">Idade Média · Conventos portugueses</span>
+        <h3>A herança da doçaria conventual</h3>
+        <p>Freiras e monges usavam claras de ovo para passar roupa e clarificar vinho — e sobravam montanhas de gemas. A solução: inventar dezenas de doces à base de gema e açúcar, avós diretas do pudim e da quindim que conhecemos hoje.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-era">Brasil colônia e império</span>
+        <h3>A receita atravessa o Atlântico</h3>
+        <p>A doçaria portuguesa desembarca no Brasil e se mistura a ingredientes locais. O pudim de leite vira sinônimo de mesa farta, ganhando calda de açúcar queimado no lugar do caramelo europeu mais claro.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-era">Século XX · a lata que mudou tudo</span>
+        <h3>Leite condensado entra em cena</h3>
+        <p>Com a popularização do leite condensado industrializado no Brasil, a receita fica mais simples e infalível — tanto que passou a vir impressa no próprio rótulo da lata, onde muita gente aprendeu a fazer o primeiro pudim da vida.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-era">Hoje</span>
+        <h3>Clássico de domingo e piada de internet</h3>
+        <p>Item fixo do almoço em família e, desde os primeiros anos dos anos 2000, protagonista involuntário de uma das brincadeiras mais antigas da internet brasileira: um site que é, literalmente, só uma foto de pudim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card-section" id="curiosidades" style="background:var(--custard-deep);">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">para impressionar na mesa</span>
+      <h2>Curiosidades</h2>
+      <p>Pequenos fatos sobre a sobremesa — e sobre o site que carrega o nome dela.</p>
+    </div>
+
+    <div class="curios-grid">
+      <div class="curio">
+        <span class="icon">👵</span>
+        <h3>Quindim é da família</h3>
+        <p>O quindim nada mais é do que um "pudim" individual, só que com mais gemas e coco — prima direta da mesma tradição conventual portuguesa.</p>
+      </div>
+      <div class="curio">
+        <span class="icon">🕳️</span>
+        <h3>O furo tem função</h3>
+        <p>O formato de anel da forma com buraco no meio não é só estética: ajuda o pudim a assar por igual e a desenformar inteiro, sem quebrar.</p>
+      </div>
+      <div class="curio">
+        <span class="icon">🥫</span>
+        <h3>A receita da lata</h3>
+        <p>Gerações de brasileiros aprenderam a fazer pudim copiando a receita impressa no rótulo da lata de leite condensado — sem livro de receitas nenhum.</p>
+      </div>
+      <div class="curio">
+        <span class="icon">🌐</span>
+        <h3>Uma lenda da internet</h3>
+        <p>O pudim.com.br original está no ar desde os primórdios da internet brasileira: uma piada minimalista que virou marco geracional só por não mudar nunca.</p>
+      </div>
+      <div class="curio">
+        <span class="icon">🎂</span>
+        <h3>Sem glúten por natureza</h3>
+        <p>A receita clássica não leva farinha — então, por acidente, o pudim sempre foi uma sobremesa naturalmente sem glúten.</p>
+      </div>
+      <div class="curio">
+        <span class="icon">🍫</span>
+        <h3>Sobremesa camaleão</h3>
+        <p>A base de ovos, leite e açúcar aceita quase qualquer sabor: café, chocolate, coco, milho, leite Ninho — a criatividade é o limite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="share" id="compartilhar">
+  <div class="wrap">
+    <span class="eyebrow">espalhe a piada</span>
+    <h2>Compartilhe esse pudim</h2>
+    <p>Se este site te arrancou um sorriso, manda pra alguém que também merece ver um pudim balançando na tela.</p>
+
+    <div class="share-buttons">
+      <a class="share-btn" target="_blank" rel="noopener" id="shareWhats" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.7-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.9 2.2 1 2.4c.1.2 1.7 2.6 4.1 3.6.6.2 1 .4 1.4.5.6.2 1.1.1 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1z"/></svg>
+        WhatsApp
+      </a>
+      <a class="share-btn" target="_blank" rel="noopener" id="shareX" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.2 8.3L23 22h-6.9l-5.4-6.9L4.4 22H1.3l7.7-8.9L1 2h7l4.9 6.3L18.9 2zm-1.2 18h1.9L7.4 4H5.3l12.4 16z"/></svg>
+        X / Twitter
+      </a>
+      <a class="share-btn" target="_blank" rel="noopener" id="shareFb" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+        Facebook
+      </a>
+      <button class="share-btn" id="copyLink" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></svg>
+        Copiar link
+      </button>
+    </div>
+    <span class="copy-msg" id="copyMsg" role="status"></span>
+  </div>
+</section>
+
+<footer>
+  <p>pudim.com.br <strong>· versão redesenhada</strong> — projeto acadêmico feito com HTML5 e CSS3.</p>
+  <p class="foot-links">Desenvolvido por <strong>Luís Felipe Da Costa Maciel</strong></p>
+  <p class="joke">continua sendo, no fundo, só uma página de pudim. e está tudo bem.</p>
+</footer>
+
+<script>
+  // Compartilhamento com URL/título dinâmicos da própria página
+  const pageUrl = encodeURIComponent(window.location.href);
+  const pageText = encodeURIComponent("Olha esse redesign do pudim.com.br 🍮");
+
+  document.getElementById('shareWhats').href = `https://api.whatsapp.com/send?text=${pageText}%20${pageUrl}`;
+  document.getElementById('shareX').href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageText}`;
+  document.getElementById('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+
+  const copyBtn = document.getElementById('copyLink');
+  const copyMsg = document.getElementById('copyMsg');
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      copyMsg.textContent = 'Link copiado! Agora é só mandar por aí.';
+    } catch (err) {
+      copyMsg.textContent = 'Não deu pra copiar automaticamente — copie o link da barra de endereço.';
+    }
+    setTimeout(() => { copyMsg.textContent = ''; }, 4000);
+  });
+</script>
+
+</body>
+</html>
